@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Добавление студента')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+<main class="container narrow">
+    <a class="back" th:href="@{/students}">← К списку</a>
+    <div class="card">
+        <h1>Добавление студента</h1>
+        <form th:action="@{/students/new}" th:object="${studentForm}" method="post" novalidate>
+            <th:block th:insert="~{fragments/layout :: studentFields}"></th:block>
+            <div class="form-actions">
+                <a class="btn btn-ghost" th:href="@{/students}">Отмена</a>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

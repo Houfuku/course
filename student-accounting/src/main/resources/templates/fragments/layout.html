@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' — Учет студентов'">Учет студентов</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:fragment="header" class="topbar">
+    <a class="brand" th:href="@{/students}">
+        <span>Учет студентов</span>
+    </a>
+    <div class="topbar-user">
+        <span class="user-name" sec:authentication="name">login</span>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-ghost">Выйти</button>
+        </form>
+    </div>
+</header>
+<th:block th:fragment="studentFields">
+    <div class="field">
+        <label for="fullName">ФИО</label>
+        <input type="text" id="fullName" th:field="*{fullName}" placeholder="Иванов Иван Иванович"
+               th:classappend="${#fields.hasErrors('fullName')} ? 'invalid'">
+        <p class="error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></p>
+    </div>
+    <div class="field-row">
+        <div class="field">
+            <label for="groupNumber">Номер группы</label>
+            <input type="text" id="groupNumber" th:field="*{groupNumber}" placeholder="ИС-11-24-1"
+                   th:classappend="${#fields.hasErrors('groupNumber')} ? 'invalid'">
+            <p class="error" th:if="${#fields.hasErrors('groupNumber')}" th:errors="*{groupNumber}"></p>
+        </div>
+        <div class="field">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" th:field="*{phone}" placeholder="+7 900 123-45-67"
+                   th:classappend="${#fields.hasErrors('phone')} ? 'invalid'">
+            <p class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+        </div>
+    </div>
+    <div class="field">
+        <label for="studyForm">Форма обучения</label>
+        <select id="studyForm" th:field="*{studyForm}"
+                th:classappend="${#fields.hasErrors('studyForm')} ? 'invalid'">
+            <option value="">— выберите —</option>
+            <option th:each="f : ${studyForms}" th:value="${f}" th:text="${f.title}">Очная</option>
+        </select>
+        <p class="error" th:if="${#fields.hasErrors('studyForm')}" th:errors="*{studyForm}"></p>
+    </div>
+</th:block>
+</body>
+</html>

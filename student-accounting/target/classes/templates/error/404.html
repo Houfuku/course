@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Не найдено')}"></head>
+<body class="auth-page">
+<main class="auth-card">
+    <h1>Страница не найдена</h1>
+    <p class="muted">Запись не существует или принадлежит другому пользователю.</p>
+    <a class="btn btn-primary btn-block" th:href="@{/students}">К списку студентов</a>
+</main>
+</body>
+</html>
